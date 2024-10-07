@@ -1,0 +1,43 @@
+<!-- <h1>Welcome to {{ hotelName }}</h1> -->
+<hinv-header></hinv-header>
+
+<!-- Mostrar el número de habitaciones con estilos dinámicos -->
+<div [hidden]="hideRooms">
+  Number of Rooms:
+  <div 
+    [ngStyle]="{'color': rooms.availableRooms ? 'green' : 'red'}"
+    [innerText]="numberOfRooms">
+  </div>
+</div>
+
+<!-- Mostrar la habitación seleccionada en formato JSON -->
+<div *ngIf="selectedRoom">
+  {{selectedRoom|json}}
+</div>
+
+<!-- <div *ngIf="selectedRoom">
+  <h2>Selected Room Details</h2>
+  <p>Room Number: {{ selectedRoom.roomNumber }}</p>
+  <p>Room Type: {{ selectedRoom.roomType }}</p>
+  <p>Amenities: {{ selectedRoom.amenities }}</p>
+  <p>Price: {{ selectedRoom.price | currency: 'GBP' }}</p>
+  <p>Check-in Time: {{ selectedRoom.checkinTime | date }}</p>
+  <p>Rating: {{ selectedRoom.rating | number: '1.1-2' }}</p>
+</div> -->
+
+<div>
+  <button (click)="addRoom()">Add Room</button>
+</div> 
+  
+
+<!-- Mostrar lista de habitaciones solo si hay habitaciones disponibles -->
+<div *ngIf="rooms.availableRooms > 0">
+  <hinv-rooms-list 
+    [rooms]="roomList"
+    [title]="title"
+    (selectedRoom)="selectRoom($event)">
+  </hinv-rooms-list>
+</div>
+
+<!-- Botón para alternar la visibilidad de las habitaciones -->
+<button (click)="toggle()">Toggle</button>
